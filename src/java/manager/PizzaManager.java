@@ -1,5 +1,6 @@
 package manager;
 
+import Facades.PizzaManagerFacade;
 import entities.Pizza;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -7,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class PizzaManager {
+public class PizzaManager implements PizzaManagerFacade {
     
     @PersistenceContext
     EntityManager em;
@@ -30,20 +31,10 @@ public class PizzaManager {
                 .getResultList();
     }
     public void update(Long id, Pizza changeTo){
-        Pizza p = em.find(Pizza.class, id);
-        
-        p.setName(changeTo.getName());
-        p.setPrice(changeTo.getPrice());
-        p.setDescription(changeTo.getDescription());
-    }
-    public Pizza update2(Pizza p){
-        return em.merge(p);
-    }
-    
-    public Pizza fixedMerge(long id, Pizza changeTo){
-        Pizza oldPizza = em.find(Pizza.class, id);
         changeTo.setId(id);
         em.merge(changeTo);
-        return oldPizza;
+    }
+    public void update(Pizza p){
+        em.merge(p);
     }
 }

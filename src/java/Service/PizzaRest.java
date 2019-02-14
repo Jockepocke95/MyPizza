@@ -18,53 +18,49 @@ import javax.ws.rs.core.MediaType;
 @Stateless
 @Path("/entities.pizza")
 public class PizzaRest {
-    
+
     @Inject
     PizzaManager pm;
-    
-    
-    
+
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Pizza p) {
         pm.create(p);
     }
-    
+
     @DELETE
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void delete(Pizza p) {
         pm.delete(p);
     }
-    
+
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Pizza edit( @PathParam("id") Long id, Pizza p) {
-        return pm.fixedMerge(id, p);
+    public void edit(@PathParam("id") Long id, Pizza p) {
+        pm.update(id, p);
     }
-    
+
     @PUT
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Pizza edit(Pizza p) {
-        return pm.update2(p);
+    public void edit(Pizza p) {
+        pm.update(p);
     }
-    
+
     @DELETE
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void delete( @PathParam("id") Long id) {
+    public void delete(@PathParam("id") Long id) {
         pm.delete(id);
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Pizza find( @PathParam("id") Long id) {
+    public Pizza find(@PathParam("id") Long id) {
         return pm.getPizza(id);
     }
-    
+
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Pizza> findAll() {

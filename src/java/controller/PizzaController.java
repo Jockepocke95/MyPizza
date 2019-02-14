@@ -1,6 +1,6 @@
 package controller;
 
-import manager.PizzaManager;
+import Facades.PizzaManagerFacade;
 import entities.Pizza;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 public class PizzaController {
     
     @Inject
-    PizzaManager pm;
+    PizzaManagerFacade pm;
     
     private String name;
     private double price;
