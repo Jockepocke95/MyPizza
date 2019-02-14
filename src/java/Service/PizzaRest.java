@@ -1,6 +1,6 @@
 package Service;
 
-import manager.PizzaManager;
+import Facades.PizzaManagerFacade;
 import entities.Pizza;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 public class PizzaRest {
 
     @Inject
-    PizzaManager pm;
+    PizzaManagerFacade pm;
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
